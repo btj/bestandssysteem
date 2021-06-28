@@ -7,19 +7,30 @@ import java.util.List;
  */
 public abstract class Knoop {
 
+	private Directory ouder;
+	
 	/**
-	 * @invar | ouder == null || ouder.ingangen.values().contains(this)
+	 * @invar | getOuderInternal() == null || getOuderInternal().getIngangenInternal().values().contains(this)
 	 * 
-	 * @peerObject
+	 * @peerObject (package-level)
 	 */
-	Directory ouder;
+	Directory getOuderInternal() { return ouder; }
 
 	/**
 	 * @peerObject
 	 */
-	public Directory getOuder() { return ouder; }
+	public Directory getOuder() { return getOuderInternal(); }
 	
+	/**
+	 * @post | getOuderInternal() == null
+	 */
 	Knoop() {}
+	
+	/**
+	 * @mutates | this
+	 * @post | getOuderInternal() == ouder
+	 */
+	void setOuder(Directory ouder) { this.ouder = ouder; }
 
 	public abstract Knoop zoekOp(List<String> pad);
 	

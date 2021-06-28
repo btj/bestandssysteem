@@ -12,12 +12,18 @@ public class Bestand extends Knoop {
 	 * @invar | inhoud != null
 	 * @representationObject
 	 */
-	byte[] inhoud = {};
+	private byte[] inhoud = {};
+	
+	/**
+	 * @creates | result
+	 * @post | result != null
+	 */
+	byte[] getInhoudInternal() { return inhoud.clone(); }
 
 	/**
 	 * @creates | result
 	 */
-	public byte[] getInhoud() { return inhoud.clone(); }
+	public byte[] getInhoud() { return getInhoudInternal(); }
 	
 	/**
 	 * @post | getOuder() == null

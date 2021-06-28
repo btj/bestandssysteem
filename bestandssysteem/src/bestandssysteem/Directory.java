@@ -17,18 +17,28 @@ public class Directory extends Knoop {
 	/**
 	 * @invar | ingangen != null
 	 * @invar | ingangen.keySet().stream().allMatch(naam -> naam != null)
-	 * @invar | ingangen.values().stream().allMatch(kind -> kind != null && kind.ouder == this)
+	 * @invar | ingangen.values().stream().allMatch(kind -> kind != null)
 	 * @invar | ingangen.values().stream().distinct().count() == ingangen.size()
 	 * @representationObject
-	 * @peerObjects | ingangen.values()
 	 */
-	Map<String, Knoop> ingangen = new HashMap<>();
+	private Map<String, Knoop> ingangen = new HashMap<>();
+	
+	/**
+	 * @invar | getIngangenInternal().values().stream().allMatch(kind -> kind.getOuderInternal() == this)
+	 * 
+	 * @post | result != null
+	 * @post | result.keySet().stream().allMatch(naam -> naam != null)
+	 * @post | result.values().stream().allMatch(kind -> kind != null)
+	 * @post | result.values().stream().distinct().count() == result.size()
+	 * @peerObjects (package-level) | result.values()
+	 */
+	Map<String, Knoop> getIngangenInternal() { return Map.copyOf(ingangen); }
 	
 	/**
 	 * @creates | result
 	 * @peerObjects | result.values()
 	 */
-	public Map<String, Knoop> getIngangen() { return Map.copyOf(ingangen); }
+	public Map<String, Knoop> getIngangen() { return getIngangenInternal(); }
 	
 	/**
 	 * @post | getOuder() == null
@@ -47,7 +57,7 @@ public class Directory extends Knoop {
 	 */
 	public void addIngang(String naam, Knoop kindknoop) {
 		ingangen.put(naam, kindknoop);
-		kindknoop.ouder = this;
+		kindknoop.setOuder(this);
 	}
 	
 	/**
@@ -57,7 +67,7 @@ public class Directory extends Knoop {
 	 * @post | old(getIngangen().get(naam)).getOuder() == null
 	 */
 	public void removeIngang(String naam) {
-		ingangen.get(naam).ouder = null;
+		ingangen.get(naam).setOuder(null);
 		ingangen.remove(naam);
 	}
 
