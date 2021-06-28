@@ -1,4 +1,4 @@
-package bestandssysteem;
+package bestandssysteem.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+
+import bestandssysteem.Bestand;
+import bestandssysteem.Directory;
+import bestandssysteem.Knoop;
+import bestandssysteem.KnoopUtils;
 
 class BestandssysteemTest {
 
